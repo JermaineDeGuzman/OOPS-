@@ -133,5 +133,14 @@
         "end": "Mandaluyong",
         "distance": 111.0,
         "cost": 1160.0
+    },
+    {
+        "booking_id": "4cc19b9d",
+        "user": "Jade",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Cavite",
+        "distance": 10.0,
+        "cost": 150.0
     }
 ]

@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
-from main2 import RideBookingApp 
+from main3 import RideBookingApp 
 
 def open_booking_app():
     new_window = tk.Toplevel(root)

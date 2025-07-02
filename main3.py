@@ -6,6 +6,8 @@ from booking import Booking
 from manager import BookingManager
 from PIL import Image, ImageTk
 from distances import destinations
+from riders import show_riders_window
+
 
 class RideBookingApp:
     def __init__(self, root):
@@ -231,6 +233,7 @@ class RideBookingApp:
         messagebox.showinfo("Success", f"Booking ID: {booking.booking_id}")
         self.clear_inputs()
         self.estimated_cost_var.set("₱0.00")
+        show_riders_window(self.root, vehicle_type=v_type, cost=booking.cost)
 
         if self.bookings_visible:
           self.refresh_bookings_table()
@@ -279,7 +282,6 @@ class RideBookingApp:
             booking_id = self.tree.item(selected[0])['values'][0]
             self.manager.cancel_booking(booking_id)
             messagebox.showinfo("Cancelled", f"Booking {booking_id} cancelled.")
-            self.show_bookings()
         else:
             messagebox.showwarning("No selection", "Please select a booking to cancel.")
 

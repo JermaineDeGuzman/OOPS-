@@ -133,5 +133,77 @@
         "end": "Manila",
         "distance": 17.4,
         "cost": 169.2
+    },
+    {
+        "booking_id": "6b6eab01",
+        "user": "wao",
+        "vehicle_type": "Car",
+        "start": "Taguig",
+        "end": "Quezon City",
+        "distance": 13.1,
+        "cost": 181.0
+    },
+    {
+        "booking_id": "a84dee44",
+        "user": "kakakakaka",
+        "vehicle_type": "Car",
+        "start": "Makati",
+        "end": "Mandaluyong",
+        "distance": 8.0,
+        "cost": 130.0
+    },
+    {
+        "booking_id": "943f0460",
+        "user": "kokowakopichiyasumnida",
+        "vehicle_type": "Van",
+        "start": "Manila",
+        "end": "Pasay",
+        "distance": 5.6,
+        "cost": 74.8
+    },
+    {
+        "booking_id": "3af81d11",
+        "user": "mwehehehehehe",
+        "vehicle_type": "Car",
+        "start": "Mandaluyong",
+        "end": "Makati",
+        "distance": 4.1,
+        "cost": 91.0
+    },
+    {
+        "booking_id": "5d2e104d",
+        "user": "Jayd",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Muntinlupa",
+        "distance": 10.0,
+        "cost": 150.0
+    },
+    {
+        "booking_id": "689bc590",
+        "user": "yuan",
+        "vehicle_type": "Van",
+        "start": "Las Pi\u00f1as",
+        "end": "Mandaluyong",
+        "distance": 15.1,
+        "cost": 150.8
+    },
+    {
+        "booking_id": "9998267f",
+        "user": "ahhhhhhhhhh",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Caloocan",
+        "distance": 23.8,
+        "cost": 288.0
+    },
+    {
+        "booking_id": "b0307e06",
+        "user": "ahdhdsf",
+        "vehicle_type": "Car",
+        "start": "Mandaluyong",
+        "end": "Para\u00f1aque",
+        "distance": 12.6,
+        "cost": 176.0
     }
 ]

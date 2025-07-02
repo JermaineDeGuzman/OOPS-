@@ -1,0 +1,137 @@
+[
+    {
+        "booking_id": "39798179",
+        "user": "Juan",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Caloocan",
+        "distance": 1.0,
+        "cost": 60.0
+    },
+    {
+        "booking_id": "f8db4853",
+        "user": "1",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Mandaluyong",
+        "distance": 2.0,
+        "cost": 70.0
+    },
+    {
+        "booking_id": "21e48b33",
+        "user": "q",
+        "vehicle_type": "Car",
+        "start": "Makati",
+        "end": "Mandaluyong",
+        "distance": 123.0,
+        "cost": 1280.0
+    },
+    {
+        "booking_id": "d9ccb94c",
+        "user": "Jer",
+        "vehicle_type": "Bike",
+        "start": "Pasig",
+        "end": "Valenzuela",
+        "distance": 10.0,
+        "cost": 50.0
+    },
+    {
+        "booking_id": "ea6f12d6",
+        "user": "Nyx",
+        "vehicle_type": "Car",
+        "start": "Makati",
+        "end": "Valenzuela",
+        "distance": 13.2,
+        "cost": 182.0
+    },
+    {
+        "booking_id": "5ef00af1",
+        "user": "asd",
+        "vehicle_type": "Car",
+        "start": "Valenzuela",
+        "end": "Makati",
+        "distance": 13.2,
+        "cost": 182.0
+    },
+    {
+        "booking_id": "c2c2b6b1",
+        "user": "Juann",
+        "vehicle_type": "Van",
+        "start": "Valenzuela",
+        "end": "Makati",
+        "distance": 13.2,
+        "cost": 135.6
+    },
+    {
+        "booking_id": "2aa8fbfe",
+        "user": "B",
+        "vehicle_type": "Car",
+        "start": "Valenzuela",
+        "end": "Makati",
+        "distance": 13.2,
+        "cost": 182.0
+    },
+    {
+        "booking_id": "9d92ce7c",
+        "user": "Jeydi",
+        "vehicle_type": "Car",
+        "start": "Taguig",
+        "end": "Manila",
+        "distance": 15.0,
+        "cost": 200.0
+    },
+    {
+        "booking_id": "a3f19622",
+        "user": "Jeydiwow",
+        "vehicle_type": "Car",
+        "start": "Manila",
+        "end": "Taguig",
+        "distance": 15.0,
+        "cost": 200.0
+    },
+    {
+        "booking_id": "ce6892b1",
+        "user": "jeyd",
+        "vehicle_type": "Car",
+        "start": "Manila",
+        "end": "Pasig",
+        "distance": 10.0,
+        "cost": 150.0
+    },
+    {
+        "booking_id": "79d9c88c",
+        "user": "Jeyd",
+        "vehicle_type": "Car",
+        "start": "Manila",
+        "end": "Pasig",
+        "distance": 10.0,
+        "cost": 150.0
+    },
+    {
+        "booking_id": "716674ba",
+        "user": "juanny",
+        "vehicle_type": "Car",
+        "start": "Makati",
+        "end": "Marikina",
+        "distance": 19.0,
+        "cost": 240.0
+    },
+    {
+        "booking_id": "4b2d373e",
+        "user": "Jeyd",
+        "vehicle_type": "Car",
+        "start": "Manila",
+        "end": "Pasay",
+        "distance": 10.0,
+        "cost": 150.0
+    },
+    {
+        "booking_id": "83932a6c",
+        "user": "j",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Mandaluyong",
+        "distance": 111.0,
+        "cost": 1160.0
+    }
+]

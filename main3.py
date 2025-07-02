@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk, messagebox, simpledialog
-from vehicle import Car, Van, Bike
+from vehicle import Car, Van, Motorcycle
 from booking import Booking
 from manager import BookingManager
 from PIL import Image, ImageTk
@@ -16,8 +16,10 @@ class RideBookingApp:
         self.manager = BookingManager()
         self.is_dark = False
         self.manual_distance_unlocked = False
-        self.image_obj= ImageTk.PhotoImage(Image.open('dark.png'))
-        self.my= ImageTk.PhotoImage(Image.open('light.png'))
+        self.image_obj = ImageTk.PhotoImage(Image.open('dark.png'))
+        self.my = ImageTk.PhotoImage(Image.open('light.png'))
+        self.bookings_visible = False
+
 
         self.destinations = destinations
                 
@@ -26,7 +28,7 @@ class RideBookingApp:
         self.vehicle_icons = {
             "Car": "🚗",
             "Van": "🚐",
-            "Bike": "🚽"
+            "Motorcycle": "🏍"
         }
 
         self.create_styles()
@@ -93,7 +95,7 @@ class RideBookingApp:
 
         ttk.Label(top_frame, text="Vehicle:").grid(row=0, column=2, padx=5, pady=5)
         self.vehicle_var = tk.StringVar(value="Car")
-        self.vehicle_box = ttk.Combobox(top_frame, textvariable=self.vehicle_var, values=[f"{self.vehicle_icons[v]} {v}" for v in ["Car", "Van", "Bike"]], state="readonly")
+        self.vehicle_box = ttk.Combobox(top_frame, textvariable=self.vehicle_var, values=[f"{self.vehicle_icons[v]} {v}" for v in ["Car", "Van", "Motorcycle"]], state="readonly")
         self.vehicle_box.grid(row=0, column=3, padx=5, pady=5)
         
 
@@ -125,8 +127,9 @@ class RideBookingApp:
         button_frame = ttk.Frame(self.root)
         button_frame.pack(pady=10)
         ttk.Button(button_frame, text="Book Ride", command=self.book_ride).grid(row=0, column=0, padx=10)
-        ttk.Button(button_frame, text="Show All Bookings", command=self.show_bookings).grid(row=0, column=1, padx=10)
-        ttk.Button(button_frame, text="Cancel Selected", command=self.cancel_booking).grid(row=0, column=2, padx=10)
+        self.toggle_button_text = tk.StringVar(value="Show All Bookings")
+        ttk.Button(button_frame, textvariable=self.toggle_button_text, command=self.show_bookings).grid(row=0, column=1, padx=10)
+        ttk.Button(button_frame, text="Cancel Ride", command=self.cancel_booking).grid(row=0, column=2, padx=10)
         self.theme_button = ttk.Button(button_frame, text="Toggle Dark Mode", command=self.toggle_theme)
         self.theme_button.grid(row=0, column=3, padx=10)
 
@@ -139,7 +142,7 @@ class RideBookingApp:
 
         ttk.Label(filter_frame, text="Filter by Vehicle:").grid(row=0, column=2, padx=5)
         self.filter_vehicle_var = tk.StringVar()
-        self.filter_vehicle_box = ttk.Combobox(filter_frame, textvariable=self.filter_vehicle_var, values=["Car", "Van", "Bike"], state="readonly", width=18)
+        self.filter_vehicle_box = ttk.Combobox(filter_frame, textvariable=self.filter_vehicle_var, values=["Car", "Van", "Motorcycle"], state="readonly", width=18)
         self.filter_vehicle_box.grid(row=0, column=3, padx=5)
         ttk.Button(filter_frame, text="Apply Filters", command=self.show_bookings).grid(row=0, column=4, padx=5)
         ttk.Button(filter_frame, text="Remove Filters", command=self.clear_filters).grid(row=0, column=5, padx=5)
@@ -189,7 +192,7 @@ class RideBookingApp:
             return
 
         v_type = self.vehicle_var.get().split(" ", 1)[-1]
-        rates = {"Car": 20, "Van": 30, "Bike": 10}
+        rates = {"Car": 20, "Van": 30, "Motorcycle": 10}
         rate = rates.get(v_type, 0)
         cost = distance * rate
         self.estimated_cost_var.set(f"₱{cost:.2f}")
@@ -220,32 +223,41 @@ class RideBookingApp:
                 messagebox.showerror("Error", "Invalid distance.")
                 return
 
-        vehicle_cls = {"Car": Car, "Van": Van, "Bike": Bike}[v_type]
+        vehicle_cls = {"Car": Car, "Van": Van, "Motorcycle": Motorcycle}[v_type]
         vehicle = vehicle_cls("ID", "Model", 4)
         booking = Booking(user, vehicle, start, end, distance)
         self.manager.add_booking(booking)
         messagebox.showinfo("Success", f"Booking ID: {booking.booking_id}")
         self.clear_inputs()
-        self.show_bookings()
         self.estimated_cost_var.set("₱0.00")
 
     def show_bookings(self):
-        self.tree.delete(*self.tree.get_children())
-        filter_user = self.filter_user_var.get().strip()
-        filter_vehicle = self.filter_vehicle_var.get().strip()
-        total = 0
-        cost_total = 0
+        if self.bookings_visible:
+            self.tree.pack_forget()
+            self.toggle_button_text.set("Show All Bookings")
+            self.summary_label.config(text="Total Bookings: 0 | Total Earnings: ₱0.00")
+            self.bookings_visible = False
+        else:
+            self.tree.pack(fill="both", expand=True, padx=20, pady=10)
+            self.tree.delete(*self.tree.get_children())
+            filter_user = self.filter_user_var.get().strip()
+            filter_vehicle = self.filter_vehicle_var.get().strip()
+            total = 0
+            cost_total = 0
 
-        for b in self.manager.bookings:
-            if (filter_user and filter_user.lower() not in b.user.lower()):
-                continue
-            if (filter_vehicle and filter_vehicle != b.vehicle.__class__.__name__):
-                continue
-            self.tree.insert("", "end", values=(b.booking_id, b.user, b.vehicle.__class__.__name__, b.start, b.end, b.distance, f"₱{b.cost:.2f}"))
-            total += 1
-            cost_total += b.cost
+            for b in self.manager.bookings:
+                if (filter_user and filter_user.lower() not in b.user.lower()):
+                    continue
+                if (filter_vehicle and filter_vehicle != b.vehicle.__class__.__name__):
+                    continue
+                self.tree.insert("", "end", values=(b.booking_id, b.user, b.vehicle.__class__.__name__, b.start, b.end, b.distance, f"₱{b.cost:.2f}"))
+                total += 1
+                cost_total += b.cost
 
-        self.summary_label.config(text=f"Total Bookings: {total} | Total Earnings: ₱{cost_total:.2f}")
+            self.summary_label.config(text=f"Total Bookings: {total} | Total Earnings: ₱{cost_total:.2f}")
+            self.toggle_button_text.set("Hide Bookings")
+            self.bookings_visible = True
+
 
     def clear_filters(self):
         self.filter_user_var.set("")

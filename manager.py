@@ -1,7 +1,7 @@
 import json
 import os
 from booking import Booking
-from vehicle import Car, Van, Bike
+from vehicle import Car, Van, Motorcycle
 
 class BookingManager:
     def __init__(self, filename='bookings.json'):
@@ -26,7 +26,7 @@ class BookingManager:
             with open(self.filename, 'r') as file:
                 data = json.load(file)
                 for d in data:
-                    vehicle_cls = {"Car": Car, "Van": Van, "Bike": Bike}[d["vehicle_type"]]
+                    vehicle_cls = {"Car": Car, "Van": Van, "Motorcycle": Motorcycle}[d["vehicle_type"]]
                     vehicle = vehicle_cls("V" + d["booking_id"], "Model", 4)
                     booking = Booking(d["user"], vehicle, d["start"], d["end"], d["distance"])
                     booking.booking_id = d["booking_id"]

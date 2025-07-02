@@ -27,15 +27,6 @@
         "cost": 1280.0
     },
     {
-        "booking_id": "d9ccb94c",
-        "user": "Jer",
-        "vehicle_type": "Bike",
-        "start": "Pasig",
-        "end": "Valenzuela",
-        "distance": 10.0,
-        "cost": 50.0
-    },
-    {
         "booking_id": "ea6f12d6",
         "user": "Nyx",
         "vehicle_type": "Car",
@@ -142,5 +133,14 @@
         "end": "Cavite",
         "distance": 10.0,
         "cost": 150.0
+    },
+    {
+        "booking_id": "7aeeef38",
+        "user": "jaideee",
+        "vehicle_type": "Motorcycle",
+        "start": "Las Pi\u00f1as",
+        "end": "Makati",
+        "distance": 13.2,
+        "cost": 66.0
     }
 ]

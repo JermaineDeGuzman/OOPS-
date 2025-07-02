@@ -15,6 +15,6 @@ class Van(Vehicle):
     def calculate_cost(self, distance):
         return distance * 8 + 30
 
-class Bike(Vehicle):
+class Motorcycle(Vehicle):
     def calculate_cost(self, distance):
         return distance * 5

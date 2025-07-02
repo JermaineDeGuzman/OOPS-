@@ -99,48 +99,39 @@
         "cost": 150.0
     },
     {
-        "booking_id": "716674ba",
-        "user": "juanny",
-        "vehicle_type": "Car",
-        "start": "Makati",
-        "end": "Marikina",
-        "distance": 19.0,
-        "cost": 240.0
-    },
-    {
-        "booking_id": "4b2d373e",
-        "user": "Jeyd",
-        "vehicle_type": "Car",
-        "start": "Manila",
-        "end": "Pasay",
-        "distance": 10.0,
-        "cost": 150.0
-    },
-    {
-        "booking_id": "83932a6c",
-        "user": "j",
-        "vehicle_type": "Car",
-        "start": "Las Pi\u00f1as",
-        "end": "Mandaluyong",
-        "distance": 111.0,
-        "cost": 1160.0
-    },
-    {
-        "booking_id": "4cc19b9d",
-        "user": "Jade",
-        "vehicle_type": "Car",
-        "start": "Las Pi\u00f1as",
-        "end": "Cavite",
-        "distance": 10.0,
-        "cost": 150.0
-    },
-    {
-        "booking_id": "7aeeef38",
-        "user": "jaideee",
+        "booking_id": "e2483b8a",
+        "user": "wiwwww",
         "vehicle_type": "Motorcycle",
         "start": "Las Pi\u00f1as",
         "end": "Makati",
         "distance": 13.2,
         "cost": 66.0
+    },
+    {
+        "booking_id": "102e8558",
+        "user": "WAAAAAA",
+        "vehicle_type": "Motorcycle",
+        "start": "San Juan",
+        "end": "Valenzuela",
+        "distance": 9.2,
+        "cost": 46.0
+    },
+    {
+        "booking_id": "4a5db2d4",
+        "user": "QQQQ",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Mandaluyong",
+        "distance": 20.0,
+        "cost": 250.0
+    },
+    {
+        "booking_id": "40002693",
+        "user": "jeydiyahh",
+        "vehicle_type": "Van",
+        "start": "Las Pi\u00f1as",
+        "end": "Manila",
+        "distance": 17.4,
+        "cost": 169.2
     }
 ]

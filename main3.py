@@ -97,7 +97,7 @@ class RideBookingApp:
         self.vehicle_var = tk.StringVar(value="Car")
         self.vehicle_box = ttk.Combobox(top_frame, textvariable=self.vehicle_var, values=[f"{self.vehicle_icons[v]} {v}" for v in ["Car", "Van", "Motorcycle"]], state="readonly")
         self.vehicle_box.grid(row=0, column=3, padx=5, pady=5)
-        
+        self.vehicle_box.bind("<<ComboboxSelected>>", lambda e: self.update_estimated_cost())
 
         ttk.Label(top_frame, text="Start:").grid(row=1, column=0, padx=5, pady=5)
         self.start_var = tk.StringVar()
@@ -116,7 +116,7 @@ class RideBookingApp:
         self.distance_entry = ttk.Entry(top_frame, width=20, textvariable=self.distance_var, state="readonly")
         self.distance_entry.grid(row=2, column=1, padx=5, pady=5)
 
-        self.unlock_button = ttk.Button(top_frame, text="Unlock Distance", command=self.unlock_distance)
+        self.unlock_button = ttk.Button(top_frame, text="Input Manually", command=self.unlock_distance)
         self.unlock_button.grid(row=2, column=2, padx=5, pady=5)
 
         ttk.Label(top_frame, text="Estimated Cost:").grid(row=2, column=3, padx=5, pady=5)
@@ -144,7 +144,7 @@ class RideBookingApp:
         self.filter_vehicle_var = tk.StringVar()
         self.filter_vehicle_box = ttk.Combobox(filter_frame, textvariable=self.filter_vehicle_var, values=["Car", "Van", "Motorcycle"], state="readonly", width=18)
         self.filter_vehicle_box.grid(row=0, column=3, padx=5)
-        ttk.Button(filter_frame, text="Apply Filters", command=self.show_bookings).grid(row=0, column=4, padx=5)
+        ttk.Button(filter_frame, text="Apply Filters", command=self.apply_filters).grid(row=0, column=4, padx=5)
         ttk.Button(filter_frame, text="Remove Filters", command=self.clear_filters).grid(row=0, column=5, padx=5)
 
         self.summary_label = ttk.Label(self.root, text="Total Bookings: 0 | Total Earnings: ₱0.00")
@@ -159,6 +159,7 @@ class RideBookingApp:
     def unlock_distance(self):
         self.manual_distance_unlocked = True
         self.distance_entry.config(state="normal")
+        self.distance_var.trace_add("write", lambda *args: self.update_estimated_cost())
 
     def update_distance(self, event=None):
         start = self.start_var.get()
@@ -200,7 +201,7 @@ class RideBookingApp:
     def book_ride(self):
         user = self.name_entry.get()
         v_icon_label = self.vehicle_var.get()
-        v_type = v_icon_label.split(" ", 1)[-1]
+        v_type = v_icon_label.split(" ", 1)[-1] 
         start = self.start_var.get()
         end = self.end_var.get()
         distance_str = self.distance_entry.get()
@@ -231,6 +232,9 @@ class RideBookingApp:
         self.clear_inputs()
         self.estimated_cost_var.set("₱0.00")
 
+        if self.bookings_visible:
+          self.refresh_bookings_table()
+
     def show_bookings(self):
         if self.bookings_visible:
             self.tree.pack_forget()
@@ -239,30 +243,35 @@ class RideBookingApp:
             self.bookings_visible = False
         else:
             self.tree.pack(fill="both", expand=True, padx=20, pady=10)
-            self.tree.delete(*self.tree.get_children())
-            filter_user = self.filter_user_var.get().strip()
-            filter_vehicle = self.filter_vehicle_var.get().strip()
-            total = 0
-            cost_total = 0
-
-            for b in self.manager.bookings:
-                if (filter_user and filter_user.lower() not in b.user.lower()):
-                    continue
-                if (filter_vehicle and filter_vehicle != b.vehicle.__class__.__name__):
-                    continue
-                self.tree.insert("", "end", values=(b.booking_id, b.user, b.vehicle.__class__.__name__, b.start, b.end, b.distance, f"₱{b.cost:.2f}"))
-                total += 1
-                cost_total += b.cost
-
-            self.summary_label.config(text=f"Total Bookings: {total} | Total Earnings: ₱{cost_total:.2f}")
+            self.refresh_bookings_table()
             self.toggle_button_text.set("Hide Bookings")
             self.bookings_visible = True
 
+    def refresh_bookings_table(self):
+        self.tree.delete(*self.tree.get_children())
+        filter_user = self.filter_user_var.get().strip()
+        filter_vehicle = self.filter_vehicle_var.get().strip()
+        total = 0
+        cost_total = 0
+
+        for b in reversed(self.manager.bookings):
+            if (filter_user and filter_user.lower() not in b.user.lower()):
+                continue
+            if (filter_vehicle and filter_vehicle != b.vehicle.__class__.__name__):
+                continue
+            self.tree.insert("", "end", values=(b.booking_id, b.user, b.vehicle.__class__.__name__, b.start, b.end, b.distance, f"₱{b.cost:.2f}"))
+            total += 1
+            cost_total += b.cost
+
+        self.summary_label.config(text=f"Total Bookings: {total} | Total Earnings: ₱{cost_total:.2f}")
+
+    def apply_filters(self):
+        if self.bookings_visible:
+            self.refresh_bookings_table()
 
     def clear_filters(self):
         self.filter_user_var.set("")
         self.filter_vehicle_var.set("")
-        self.show_bookings()
 
     def cancel_booking(self):
         selected = self.tree.selection()

@@ -1,13 +1,12 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk, messagebox, simpledialog
-from vehicle import Car, Van, Motorcycle
-from booking import Booking
-from manager import BookingManager
-from PIL import Image, ImageTk
-from distances import destinations
-from riders import show_riders_window
-
+from vehicle import Car, Van, Motorcycle # Import vehicle classes
+from booking import Booking # Import Booking class
+from manager import BookingManager # Import Booking class
+from PIL import Image, ImageTk  # For handling image icons
+from distances import destinations # Dictionary for Locations and Distances
+from Riders import show_riders_window # Function to show rider info window
 
 class RideBookingApp:
     def __init__(self, root):
@@ -15,35 +14,38 @@ class RideBookingApp:
         self.root.title("Ride Booking System")
         self.root.geometry("1000x600")
 
-        self.manager = BookingManager()
-        self.is_dark = False
-        self.manual_distance_unlocked = False
-        self.image_obj = ImageTk.PhotoImage(Image.open('dark.png'))
-        self.my = ImageTk.PhotoImage(Image.open('light.png'))
-        self.bookings_visible = False
+        self.manager = BookingManager() # Initialize booking manager
+        self.is_dark = False  # Track current theme
+        self.manual_distance_unlocked = False  # Allow manual distance input
+        self.image_obj = ImageTk.PhotoImage(Image.open('dark.png'))  # Dark mode icon
+        self.my = ImageTk.PhotoImage(Image.open('light.png')) # Light mode icon
+        self.bookings_visible = False # Track booking table visibility
 
 
-        self.destinations = destinations
-                
+        self.destinations = destinations # Predefined distances
+
+        # Create a sorted list of unique city names from the destinations dictionary        
         self.city_list = sorted(set([city for pair in self.destinations.keys() for city in pair]))
         
+        # Emoji icons for vehicles
         self.vehicle_icons = {
             "Car": "🚗",
             "Van": "🚐",
             "Motorcycle": "🏍"
         }
 
-        self.create_styles()
-        self.create_widgets()
+        self.create_styles() # Apply initial styles
+        self.create_widgets() # Build UI components
 
     def create_styles(self):
         self.style = ttk.Style()
-        self.set_theme()
+        self.set_theme() # Set the theme based on current mode
 
     def set_theme(self):
-        self.style.theme_use("clam")
+        self.style.theme_use("clam")  # Use clam theme for compatibility
 
         if self.is_dark:
+            # Configure dark theme colors and images
             self.root.configure(bg="#001657")
             self.style.configure("TLabel", background="#001657", foreground="white")
             self.style.configure("TFrame", background="#001657")
@@ -59,7 +61,9 @@ class RideBookingApp:
             self.logo.image=self.my
             self.logo.pack()
             self.logo.place(x=625, y=15)
+        
         else:
+            # Configure light theme colors and images
             self.root.configure(bg="#f4f4f4")
             self.style.configure("TLabel", background="#f4f4f4", foreground="black")
             self.style.configure("TFrame", background="#f4f4f4")
@@ -77,12 +81,13 @@ class RideBookingApp:
             self.logo.place(x=625, y=15)
 
     def toggle_theme(self):
-        self.is_dark = not self.is_dark
+        self.is_dark = not self.is_dark  # Toggle the theme state
         self.set_theme()
         new_text = "Toggle Light Mode" if self.is_dark else "Toggle Dark Mode"
         self.theme_button.config(text=new_text)
 
     def create_widgets(self):
+        # Create input form and buttons
         top_frame = ttk.Frame(self.root)
         top_frame.pack(padx=20, pady=10, fill="x")
         self.image_obj= ImageTk.PhotoImage(Image.open('dark.png'))  
@@ -91,16 +96,19 @@ class RideBookingApp:
         self.logo.pack()
         self.logo.place(x=625, y=15)
 
+        # User input fields
         ttk.Label(top_frame, text="Name:").grid(row=0, column=0, padx=5, pady=5)
         self.name_entry = ttk.Entry(top_frame, width=20)
         self.name_entry.grid(row=0, column=1, padx=5, pady=5)
 
+        # Vehicle Selections
         ttk.Label(top_frame, text="Vehicle:").grid(row=0, column=2, padx=5, pady=5)
         self.vehicle_var = tk.StringVar(value="Car")
         self.vehicle_box = ttk.Combobox(top_frame, textvariable=self.vehicle_var, values=[f"{self.vehicle_icons[v]} {v}" for v in ["Car", "Van", "Motorcycle"]], state="readonly")
         self.vehicle_box.grid(row=0, column=3, padx=5, pady=5)
         self.vehicle_box.bind("<<ComboboxSelected>>", lambda e: self.update_estimated_cost())
 
+        # Start and End Locations
         ttk.Label(top_frame, text="Start:").grid(row=1, column=0, padx=5, pady=5)
         self.start_var = tk.StringVar()
         self.start_combo = ttk.Combobox(top_frame, textvariable=self.start_var, values=self.city_list)
@@ -113,19 +121,23 @@ class RideBookingApp:
         self.end_combo.grid(row=1, column=3, padx=5, pady=5)
         self.end_combo.bind("<<ComboboxSelected>>", self.update_distance)
 
+        # Distance Input
         ttk.Label(top_frame, text="Distance (mi):").grid(row=2, column=0, padx=5, pady=5)
         self.distance_var = tk.StringVar()
         self.distance_entry = ttk.Entry(top_frame, width=20, textvariable=self.distance_var, state="readonly")
         self.distance_entry.grid(row=2, column=1, padx=5, pady=5)
 
+        # Manual Input Toggle
         self.unlock_button = ttk.Button(top_frame, text="Input Manually", command=self.unlock_distance)
         self.unlock_button.grid(row=2, column=2, padx=5, pady=5)
-
+        
+        # Cost Label
         ttk.Label(top_frame, text="Estimated Cost:").grid(row=2, column=3, padx=5, pady=5)
         self.estimated_cost_var = tk.StringVar(value="₱0.00")
         self.estimated_cost_label = ttk.Label(top_frame, textvariable=self.estimated_cost_var)
         self.estimated_cost_label.grid(row=2, column=4, padx=5, pady=5)
 
+        # Buttons: Book, Filter, Cancel, Theme
         button_frame = ttk.Frame(self.root)
         button_frame.pack(pady=10)
         ttk.Button(button_frame, text="Book Ride", command=self.book_ride).grid(row=0, column=0, padx=10)
@@ -135,6 +147,7 @@ class RideBookingApp:
         self.theme_button = ttk.Button(button_frame, text="Toggle Dark Mode", command=self.toggle_theme)
         self.theme_button.grid(row=0, column=3, padx=10)
 
+        # Filter section
         filter_frame = ttk.LabelFrame(self.root, text="Filters")
         filter_frame.pack(fill="x", padx=20, pady=5)
         ttk.Label(filter_frame, text="Filter by User:").grid(row=0, column=0, padx=5)
@@ -149,9 +162,11 @@ class RideBookingApp:
         ttk.Button(filter_frame, text="Apply Filters", command=self.apply_filters).grid(row=0, column=4, padx=5)
         ttk.Button(filter_frame, text="Remove Filters", command=self.clear_filters).grid(row=0, column=5, padx=5)
 
+        # Summary label for bookings
         self.summary_label = ttk.Label(self.root, text="Total Bookings: 0 | Total Earnings: ₱0.00")
         self.summary_label.pack(pady=5)
 
+        # Table for booking list
         self.tree = ttk.Treeview(self.root, columns=("ID", "User", "Vehicle", "Start", "End", "Distance", "Cost"), show='headings')
         for col in self.tree["columns"]:
             self.tree.heading(col, text=col)
@@ -159,11 +174,13 @@ class RideBookingApp:
         self.tree.pack(fill="both", expand=True, padx=20, pady=10)
 
     def unlock_distance(self):
+        # Allow user to manually input distance
         self.manual_distance_unlocked = True
         self.distance_entry.config(state="normal")
         self.distance_var.trace_add("write", lambda *args: self.update_estimated_cost())
 
     def update_distance(self, event=None):
+        # Auto-update distance based on selected cities
         start = self.start_var.get()
         end = self.end_var.get()
 
@@ -173,6 +190,7 @@ class RideBookingApp:
             self.estimated_cost_var.set("₱0.00")
             return
 
+        # Look up distance in dictionary
         distance = self.destinations.get((start, end)) or self.destinations.get((end, start))
 
         if distance is not None:
@@ -188,6 +206,7 @@ class RideBookingApp:
         self.update_estimated_cost()
 
     def update_estimated_cost(self):
+        # Estimate fare cost based on distance and vehicle type
         try:
             distance = float(self.distance_var.get())
         except:
@@ -201,6 +220,7 @@ class RideBookingApp:
         self.estimated_cost_var.set(f"₱{cost:.2f}")
 
     def book_ride(self):
+        # Collect input and validate
         user = self.name_entry.get()
         v_icon_label = self.vehicle_var.get()
         v_type = v_icon_label.split(" ", 1)[-1] 
@@ -218,6 +238,7 @@ class RideBookingApp:
             messagebox.showerror("Invalid Distance", "Please enter a valid distance.")
             return
 
+        # Allow adding new distance entry manually
         if not distance and self.manual_distance_unlocked:
             try:
                 distance = float(self.distance_var.get())
@@ -226,10 +247,13 @@ class RideBookingApp:
                 messagebox.showerror("Error", "Invalid distance.")
                 return
 
+        # Create vehicle and booking instance
         vehicle_cls = {"Car": Car, "Van": Van, "Motorcycle": Motorcycle}[v_type]
         vehicle = vehicle_cls("ID", "Model", 4)
         booking = Booking(user, vehicle, start, end, distance)
         self.manager.add_booking(booking)
+        
+        # Success message
         messagebox.showinfo("Success", f"Booking ID: {booking.booking_id}")
         self.clear_inputs()
         self.estimated_cost_var.set("₱0.00")
@@ -239,6 +263,7 @@ class RideBookingApp:
           self.refresh_bookings_table()
 
     def show_bookings(self):
+        # Toggle bookings table visibility
         if self.bookings_visible:
             self.tree.pack_forget()
             self.toggle_button_text.set("Show All Bookings")
@@ -251,6 +276,7 @@ class RideBookingApp:
             self.bookings_visible = True
 
     def refresh_bookings_table(self):
+        # Refresh table with filtered data
         self.tree.delete(*self.tree.get_children())
         filter_user = self.filter_user_var.get().strip()
         filter_vehicle = self.filter_vehicle_var.get().strip()
@@ -277,6 +303,7 @@ class RideBookingApp:
         self.filter_vehicle_var.set("")
 
     def cancel_booking(self):
+        # Cancel selected booking from table
         selected = self.tree.selection()
         if selected:
             booking_id = self.tree.item(selected[0])['values'][0]
@@ -286,13 +313,15 @@ class RideBookingApp:
             messagebox.showwarning("No selection", "Please select a booking to cancel.")
 
     def clear_inputs(self):
+        # Reset input fields
         self.name_entry.delete(0, tk.END)
         self.start_var.set("")
         self.end_var.set("")
         self.distance_entry.delete(0, tk.END)
         self.vehicle_var.set(f"{self.vehicle_icons['Car']} Car")
 
-if __name__ == "__main__":
+# Start the main GUI loop
+if __name__ == "_main_":
     root = tk.Tk()
     app = RideBookingApp(root)
     root.mainloop()

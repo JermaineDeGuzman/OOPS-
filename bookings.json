@@ -207,71 +207,26 @@
         "cost": 176.0
     },
     {
-        "booking_id": "8c322ecd",
-        "user": "aaaaaaaaaa",
-        "vehicle_type": "Car",
-        "start": "Caloocan",
-        "end": "Mandaluyong",
-        "distance": 9.6,
-        "cost": 146.0
-    },
-    {
-        "booking_id": "52d793dd",
-        "user": "aaaaa",
-        "vehicle_type": "Car",
-        "start": "Makati",
-        "end": "Mandaluyong",
-        "distance": 4.1,
-        "cost": 91.0
-    },
-    {
-        "booking_id": "0a3a6db2",
-        "user": "a",
-        "vehicle_type": "Car",
-        "start": "Caloocan",
-        "end": "Makati",
-        "distance": 10.6,
-        "cost": 156.0
-    },
-    {
-        "booking_id": "040fb527",
-        "user": "ss",
+        "booking_id": "b804a79c",
+        "user": "meee",
         "vehicle_type": "Car",
         "start": "Las Pi\u00f1as",
-        "end": "Makati",
-        "distance": 13.2,
-        "cost": 182.0
+        "end": "Mandaluyong",
+        "distance": 15.1,
+        "cost": 201.0
     },
     {
-        "booking_id": "d571ce39",
-        "user": "ssss",
-        "vehicle_type": "Car",
-        "start": "Caloocan",
-        "end": "Makati",
-        "distance": 10.6,
-        "cost": 156.0
-    },
-    {
-        "booking_id": "24f9a74f",
-        "user": "aaa",
-        "vehicle_type": "Car",
-        "start": "Manila",
-        "end": "Makati",
-        "distance": 6.5,
-        "cost": 115.0
-    },
-    {
-        "booking_id": "4441e968",
-        "user": "dd",
-        "vehicle_type": "Car",
+        "booking_id": "4e2b70a8",
+        "user": "rumi",
+        "vehicle_type": "Motorcycle",
         "start": "Mandaluyong",
-        "end": "Caloocan",
-        "distance": 9.6,
-        "cost": 146.0
+        "end": "Makati",
+        "distance": 4.1,
+        "cost": 20.5
     },
     {
-        "booking_id": "cc0c44f5",
-        "user": "aaaa",
+        "booking_id": "1ed53d51",
+        "user": "jinu",
         "vehicle_type": "Car",
         "start": "Las Pi\u00f1as",
         "end": "Marikina",
@@ -279,26 +234,62 @@
         "cost": 230.0
     },
     {
-        "booking_id": "4af802fa",
-        "user": "aa",
+        "booking_id": "7b4b9ca7",
+        "user": "testing",
         "vehicle_type": "Car",
-        "start": "Las Pi\u00f1as",
-        "end": "Makati",
-        "distance": 13.2,
-        "cost": 182.0
-    },
-    {
-        "booking_id": "96505d97",
-        "user": "ssfs",
-        "vehicle_type": "Car",
-        "start": "Caloocan",
+        "start": "Makati",
         "end": "Mandaluyong",
-        "distance": 9.6,
-        "cost": 146.0
+        "distance": 4.1,
+        "cost": 91.0
     },
     {
-        "booking_id": "4e0ea004",
-        "user": "s",
+        "booking_id": "720890f7",
+        "user": "meeeee",
+        "vehicle_type": "Car",
+        "start": "Makati",
+        "end": "Manila",
+        "distance": 6.5,
+        "cost": 115.0
+    },
+    {
+        "booking_id": "b6305dd2",
+        "user": "hello",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Mandaluyong",
+        "distance": 15.1,
+        "cost": 201.0
+    },
+    {
+        "booking_id": "35fe6bb7",
+        "user": "trish",
+        "vehicle_type": "Car",
+        "start": "Las Pi\u00f1as",
+        "end": "Manila",
+        "distance": 17.4,
+        "cost": 224.0
+    },
+    {
+        "booking_id": "aec50637",
+        "user": "hghjgjggj",
+        "vehicle_type": "Van",
+        "start": "Makati",
+        "end": "Mandaluyong",
+        "distance": 4.1,
+        "cost": 62.8
+    },
+    {
+        "booking_id": "287a80b4",
+        "user": "dfjkghdghdkj",
+        "vehicle_type": "Car",
+        "start": "Makati",
+        "end": "Mandaluyong",
+        "distance": 4.1,
+        "cost": 91.0
+    },
+    {
+        "booking_id": "84ea7c34",
+        "user": "njdlksf",
         "vehicle_type": "Car",
         "start": "Las Pi\u00f1as",
         "end": "Makati",
@@ -306,30 +297,21 @@
         "cost": 182.0
     },
     {
-        "booking_id": "6cd2508f",
-        "user": "sss",
+        "booking_id": "0a12abaf",
+        "user": "emiii",
         "vehicle_type": "Car",
         "start": "Las Pi\u00f1as",
-        "end": "Makati",
-        "distance": 13.2,
-        "cost": 182.0
+        "end": "Manila",
+        "distance": 17.4,
+        "cost": 224.0
     },
     {
-        "booking_id": "17a667d8",
-        "user": "sdss",
+        "booking_id": "26796dd7",
+        "user": "jade",
         "vehicle_type": "Car",
-        "start": "Las Pi\u00f1as",
-        "end": "Makati",
-        "distance": 13.2,
-        "cost": 182.0
-    },
-    {
-        "booking_id": "37edde2e",
-        "user": "asasa",
-        "vehicle_type": "Car",
-        "start": "Marikina",
+        "start": "Manila",
         "end": "Las Pi\u00f1as",
-        "distance": 18.0,
-        "cost": 230.0
+        "distance": 17.4,
+        "cost": 224.0
     }
 ]
